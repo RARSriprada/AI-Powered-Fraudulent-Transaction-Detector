@@ -29,27 +29,45 @@ A comprehensive, full-stack application designed to detect fraudulent financial 
 ---
 
 ## ✨ Key Features
-
--   **Secure User Authentication**: Robust signup and login system using JWT tokens to secure all sensitive endpoints.
--   **Encrypted Data Storage**: Credit card numbers are encrypted before being stored in the SQLite database, ensuring data privacy.
--   **High-Performance Batch Ingestion**: Efficiently ingest large datasets from CSV files into the database.
--   **Asynchronous Fraud Detection**: Run the ML detection model as a background task, allowing the user to continue interacting with the UI.
--   **Real-time Progress Monitoring**: A dedicated endpoint provides live updates on the status of the detection process.
--   **Comprehensive Reporting**: View paginated fraud reports directly in the UI or download a complete CSV file for offline analysis.
--   **Complete Audit Trail**: Log every significant user action (ingestion, detection, clearing data) for accountability and tracking.
--   **On-Demand Model Retraining**: Trigger the ML model retraining process via an API endpoint to keep it updated with new data.
+**Modular Multi-Model ML Core:** Seamlessly switch between multiple fraud detection algorithms (Isolation Forest, Random Forest, Logistic Regression, Decision Tree) via the UI for comparative analysis.
+**Secure User Authentication:** Robust signup and login system using JWT tokens with a configurable 30-minute session timeout to secure all sensitive endpoints.
+**Encrypted Data Storage:** Sensitive data, such as credit card numbers, is encrypted using the cryptography library before being stored in the SQLite database, ensuring data privacy.
+**High-Performance Batch Ingestion:** Efficiently ingest and append large transaction datasets from CSV files into the database.
+**Asynchronous Fraud Detection:** Run ML detection models as background tasks using FastAPI's built-in support, preventing UI freezes and allowing for a smooth user experience.
+**Real-time Progress Monitoring:** A dedicated API endpoint provides live progress updates on the status of the detection process, reflected dynamically on the frontend.
+**Comprehensive Reporting:** View detailed fraud reports directly in the UI and download a complete CSV file for offline analysis.
+**Complete Audit Trail:** Log every significant user action (ingestion, detection runs, model retraining, data clearing) for accountability and tracking.
+**On-Demand Model Retraining:** Trigger the ML model retraining process at any time via an API endpoint to keep the models updated with the latest data patterns.
 
 ---
+## 🤖 Machine Learning Models & Workflow
+This system employs a sophisticated, cyclical workflow that leverages both unsupervised and supervised learning to achieve high accuracy.
+Available Models
+**Isolation Forest (Unsupervised):** Ideal for initial analysis on unlabeled data. It excels at identifying anomalies and outliers that are likely fraudulent.
+**Random Forest (Supervised):** The most powerful and accurate model in the suite. It is a robust ensemble method that provides a great balance of performance and feature insight. Training is parallelized using n_jobs=-1 for maximum speed.
+**Logistic Regression & Decision Tree (Supervised):** Excellent for establishing a performance baseline and for their high interpretability, allowing for easy-to-understand decision rules.
+**Recommended Workflow**
+The application is designed for a powerful, three-stage process:
+Labeling with Isolation Forest:
+**1.Ingest Data:** Upload a new transaction CSV file.
+**2.Select Model:** Choose Isolation Forest from the dropdown.
+**3.Run Detection:** This initial run will process the unlabeled data and generate the first set of labels (fraud / not-fraud).
+**4.Training Supervised Models:**
+   **a.Select Model:** Choose a supervised model like Random Forest.
+   **b.Train Model:** Click the "Retrain Selected Model" button. The model will now train on the rich, labeled dataset created in the previous step, learning complex fraud patterns. This creates a saved .pkl file for the model.
+ **High-Accuracy Detection then Select Model:** Keep Random Forest selected.
+**5.Run Detection:** Run the fraud detection again. The system will now use the highly accurate, trained supervised model to find fraudulent transactions with greater precision.
 
 ## 🛠️ Tech Stack
 
--   **Backend**: Python, FastAPI, SQLAlchemy, Uvicorn
--   **Database**: SQLite
--   **Machine Learning**: Pandas, Scikit-learn
--   **Frontend**: React, TailwindCSS, Vanilla JavaScript
---   **Security**: JWT, Passlib for password hashing, Cryptography for data encryption
-
----
+| Category      | Technology                                                                                                                                              |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Backend** | **Python**, **FastAPI**, **SQLAlchemy** (ORM), **Uvicorn** (ASGI Server), **Pydantic** (Data Validation)                                                   |
+| **ML/Data** | **Scikit-learn**, **Pandas**, **Joblib** (Model Persistence)                                                                                              |
+| **Frontend** | **HTML5**, **CSS3**, **JavaScript (ES6+)**, **PapaParse** (CSV Parsing)                                                                                    |
+| **Database** | **SQLite** |
+| **Security** | **JWT (JSON Web Tokens)** for authentication, **Passlib** & **Bcrypt** for password hashing, **Cryptography** for data encryption                          |
+| **Dev Tools** | **Git**, **GitHub**, **Virtualenv** |
 
 ## 📦 Project Structure
 
