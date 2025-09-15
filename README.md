@@ -8,8 +8,7 @@
 
 A comprehensive, full-stack application designed to detect fraudulent financial transactions using a machine learning model, served via a high-performance FastAPI backend and visualized with a modern React frontend.
 
-
-(Dashboard.png)
+![Application Dashboard](Dashboard.png)
 
 ---
 
