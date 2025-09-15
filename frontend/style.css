@@ -1,0 +1,90 @@
+:root {
+    --primary-color: #007bff; --primary-hover: #0056b3; --secondary-color: #6c757d;
+    --success-color: #28a745; --danger-color: #dc3545; --light-bg: #f8f9fa;
+    --border-color: #dee2e6; --text-color: #212529; --light-text: #6c757d;
+    --background-color: #f0f2f5; --white: #ffffff;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); --border-radius: 8px;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color); color: var(--text-color);
+    margin: 0; display: flex; justify-content: center; padding: 20px; box-sizing: border-box;
+}
+h1, h2 { color: #1a2a45; margin-top: 0; }
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px; }
+.container {
+    display: grid; grid-template-columns: 320px 1fr; grid-template-rows: auto 1fr;
+    gap: 25px; width: 100%; max-width: 1500px; height: 92vh;
+    background: var(--white); border-radius: var(--border-radius); box-shadow: var(--box-shadow);
+    padding: 25px; box-sizing: border-box;
+}
+header {
+    grid-column: 1 / -1; padding-bottom: 15px; display: flex;
+    justify-content: space-between; align-items: center;
+}
+header h1 { margin: 0; }
+.sidebar {
+    background-color: var(--light-bg); padding: 20px; border-radius: var(--border-radius);
+    border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 20px;
+}
+.action-item label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-color); }
+.action-item button, .action-item input[type="file"] { width: 100%; font-size: 1rem; border-radius: 5px; box-sizing: border-box; }
+.action-item input[type="file"] { border: 1px solid var(--border-color); padding: 8px; }
+.action-item input[type="file"]::file-selector-button {
+    margin-right: 10px; border: none; background: var(--secondary-color);
+    padding: 8px 12px; border-radius: 5px; color: var(--white); cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+.action-item input[type="file"]::file-selector-button:hover { background: #5a6268; }
+.action-item button {
+    background-color: var(--primary-color); color: white; border: none;
+    padding: 12px; cursor: pointer; font-weight: 600;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+}
+.action-item button:hover:not(:disabled) { background-color: var(--primary-hover); transform: translateY(-2px); }
+.action-item button:active:not(:disabled) { transform: translateY(0); }
+.action-item button:disabled { background-color: #c0c0c0; cursor: not-allowed; }
+.content { overflow-y: auto; padding-right: 10px; }
+.hidden { display: none !important; }
+#status-area .info, #status-area .success, #status-area .error { padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 5px solid; }
+.info { background-color: #e9f5ff; border-color: var(--primary-color); }
+.success { background-color: #e9f9e9; border-color: var(--success-color); }
+.error { background-color: #f9e9e9; border-color: var(--danger-color); }
+#progress-area { margin-bottom: 20px; }
+.progress-bar-container { width: 100%; background-color: #e9ecef; border-radius: 5px; overflow: hidden; height: 24px; }
+.progress-bar { width: 0%; height: 100%; background-color: var(--success-color); transition: width 0.3s ease-in-out; text-align: center; line-height: 24px; color: white; }
+#progress-text { margin-top: 8px; font-size: 0.9rem; color: var(--light-text); }
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 25px; }
+.metric { background: var(--light-bg); padding: 20px; border-radius: var(--border-radius); border: 1px solid var(--border-color); text-align: center; }
+.metric h3 { margin: 0 0 5px 0; font-size: 2rem; color: var(--primary-color); }
+.metric p { margin: 0; color: var(--light-text); font-weight: 500; }
+.table-container { max-height: 450px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: var(--border-radius); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
+thead th { background-color: var(--light-bg); position: sticky; top: 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+tbody tr:nth-of-type(even) { background-color: #fcfcfc; }
+tbody tr:hover { background-color: #f1f1f1; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background: var(--white); padding: 30px 40px; border-radius: var(--border-radius); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); width: 100%; max-width: 400px; text-align: center; }
+.modal-content h2 { margin-bottom: 25px; border: none; }
+.modal-content form { display: flex; flex-direction: column; gap: 15px; }
+.modal-content input { padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 1rem; }
+.modal-content button { padding: 12px; background-color: var(--primary-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: background-color 0.2s; }
+.modal-content button:hover { background-color: var(--primary-hover); }
+.modal-content p { margin-top: 20px; }
+.modal-content a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+.form-error { color: var(--danger-color); font-size: 0.9rem; height: 1em; margin-top: 5px !important; }
+.user-status { display: flex; align-items: center; gap: 15px; }
+.user-status span { font-weight: 500; }
+.user-status button { padding: 8px 16px; font-size: 0.9rem; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.2s; }
+#login-btn-header, #signup-btn-header { background-color: var(--primary-color); color: white; }
+#login-btn-header:hover, #signup-btn-header:hover { background-color: var(--primary-hover); }
+#logout-btn { background-color: var(--secondary-color); color: white; }
+#logout-btn:hover { background-color: #5a6268; }
+#log-area .table-container { max-height: 600px; }
+.retrain-row {
+    background-color: #fff3cd;
+    font-weight: bold;
+    color: #856404;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fraud Detector</title>
+    <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body>
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div id="login-view">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <input type="text" id="login-username" placeholder="Username" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                    <p class="form-error" id="login-error"></p>
+                </form>
+                <p>No account? <a href="#" id="show-signup">Sign up here</a></p>
+            </div>
+            <div id="signup-view" class="hidden">
+                <h2>Sign Up</h2>
+                <form id="signup-form">
+                    <input type="text" id="signup-username" placeholder="Username" required>
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                    <button type="submit">Create Account</button>
+                    <p class="form-error" id="signup-error"></p>
+                </form>
+                <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🤖 AI-Powered Fraudulent Transaction Detector</h1>
+            <div id="user-status" class="user-status">
+                <span id="user-info" class="hidden">Welcome, <strong id="username-display"></strong>!</span>
+                <button id="logout-btn" class="hidden">Logout</button>
+                <button id="login-btn-header">Login</button>
+                <button id="signup-btn-header">Sign Up</button>
+            </div>
+        </header>
+        
+        <aside class="sidebar">
+            <h2>Actions</h2>
+            <div class="action-item">
+                <label for="csv-upload">1. Upload Transaction CSV</label>
+                <input type="file" id="csv-upload" accept=".csv">
+            </div>
+            <div class="action-item"><button id="ingest-btn" disabled>2. Ingest Data</button></div>
+            
+            <div class="action-item"><button id="clear-db-btn" disabled style="background-color: var(--danger-color);">Clear All Data</button></div>
+            
+            <div class="action-item">
+                <label for="model-selector">Select Model for Detection & Training</label>
+                <select id="model-selector">
+                    <option value="IsolationForest">Isolation Forest (Unsupervised)</option>
+                    <option value="LogisticRegression">Logistic Regression (Supervised)</option>
+                    <option value="DecisionTree">Decision Tree (Supervised)</option>
+                    <option value="RandomForest">Random Forest (Supervised)</option>
+                </select>
+            </div>
+
+            <div class="action-item"><button id="detect-btn" disabled>3. Run Fraud Detection</button></div>
+        
+            <div class="action-item"><button id="download-report-btn" disabled>4. Download Report</button></div>
+            <div class="action-item"><button id="log-btn" disabled>5. View Audit Log</button></div>
+            <div class="action-item"><button id="retrain-btn" disabled>6. Retrain Selected Model</button></div>
+        </aside>
+        
+        <main class="content">
+            <div id="status-area"><p class="info">Please log in to use the application.</p></div>
+            <div id="progress-area" class="hidden">
+                <div class="progress-bar-container"><div id="progress-bar" class="progress-bar"></div></div>
+                <p id="progress-text"></p>
+            </div>
+            <div id="report-area" class="hidden">
+                <h2>🚨 Fraudulent Transaction Report</h2>
+                <div class="metrics">
+                    <div class="metric" id="metric-total"></div>
+                    <div class="metric" id="metric-fraud"></div>
+                    <div class="metric" id="metric-legit"></div>
+                    <div class="metric" id="metric-percent"></div>
+                </div>
+                <div class="table-container">
+                    <table id="fraud-table">
+                        <thead><tr><th>ID</th><th>Masked Card Number</th><th>Amount</th><th>Timestamp</th><th>Explanation / Cause Analysis</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="log-area" class="hidden">
+                <h2>📜 Audit Log</h2>
+                <div class="table-container">
+                    <table id="log-table">
+                        <thead><tr><th>Timestamp</th><th>Username</th><th>Action</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/frontend/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+</body>
+</html>

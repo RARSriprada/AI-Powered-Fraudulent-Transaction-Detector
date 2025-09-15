@@ -1,0 +1,13 @@
+fastapi~=0.116.1
+uvicorn[standard]
+sqlalchemy~=2.0.43
+scikit-learn~=1.7.2
+joblib~=1.5.2
+cryptography~=45.0.7
+pydantic~=2.11.7
+streamlit~=1.49.1
+pandas~=2.3.2
+google-generativeai
+python-dotenv~=1.1.1
+requests~=2.32.5
+plotly~=6.3.0
